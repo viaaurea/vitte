@@ -1,0 +1,16 @@
+{
+  "name": "viaaurea/vitte",
+  "license": "MIT",
+  "keywords": ["vite", "latte", "nette", "bridge"],
+  "require": {
+    "php": "^7.4 || ^8",
+    "dakujem/peat": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "VA\\Vitte\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
