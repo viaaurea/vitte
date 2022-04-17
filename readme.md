@@ -20,25 +20,26 @@ Najjednoduchsou cestou je dekoracia `Latte\Engine` pomocou `ViteLatteInstaller` 
 ```yaml
 # any.neon (Nette)
 services:
-    vite.bridge:
+    vite:
         class:          VA\Vitte\ViteNetteBridge
         arguments:
-            path:       assets                          # Relativna cesta od document_root k manifestu
+            path:       assets                          # Relativna cesta od www k manifestu
             manifest:   manifest.json                   # Nazov manifest suboru
             tempFile:   vite.php                        # Pre kazdy Vite bundle musi byt vlastny cache subor v temp adresari.
-            dev:        %system.vite.vue.development%   # Pri zapnutom dev rezime produkuje linky na Vite dev-server
             devUrl:     %system.vite.vue.url%           # Default je 'http://localhost:3000'
             strict:     %system.development%            # Striktny rezim zapneme len pri vyvoji
             basePath:   @http.paths::getBasePath()
             wwwDir:     %wwwDir%
             tempDir:    %tempDir%
-    vite.locator:
-      factory:          @vite.bridge::makePassiveEntryLocator()
 
 decorator:
   Latte\Engine:
     setup:
-      - VA\Vitte\ViteLatteInstaller()::bundle(...)::install(@self)
+      - VA\Vitte\ViteLatteInstaller()::bundle(
+          @vite::makePassiveEntryLocator(
+            %system.vite.vue.development%               # Pri zapnutom dev rezime produkuje linky na Vite dev-server
+          )
+        )::install(@self)
 ```
 
 V sablone bude po uspesnej instalacii dostupne makro `{vite}`:
@@ -67,9 +68,9 @@ Pouzitie je potom nasledovne:
 
 ## Vite configuration
 
-Pre spravnu funkcnost je potrebne [nakonfigurovat Vite](https://vitejs.dev/guide/backend-integration.html).
-
-Vid [tipy na Vite konfiguraciu](https://github.com/dakujem/peat#vite-configuration).
+Pre spravnu funkcnost je potrebne nakonfigurovat Vite:
+- [nastavenie nastroja](https://github.com/dakujem/peat#vite-configuration)
+- [Vite dokumentacia](https://vitejs.dev/guide/backend-integration.html).
 
 
 ## Cache Warmup
@@ -95,8 +96,8 @@ use VA\Vitte\ViteNetteBridge;
     echo "Vite cache warmup: "; // echo az po vytvoreni kontajneru
 
     /** @var ViteNetteBridge $vite */
-    $vite = $container->get('vite.bridge');
-    $vite->cacheWarmup();
+    $vite = $container->get('vite');
+    $vite->populateCache();
 
     echo "ok\n";
 })();

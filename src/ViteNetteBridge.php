@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace VA\Vitte;
 
 use Dakujem\Peat\ViteBridge;
-use Dakujem\Peat\ViteBuildLocator;
 use Dakujem\Peat\ViteLocatorContract;
 
 /**
@@ -15,60 +14,35 @@ use Dakujem\Peat\ViteLocatorContract;
  */
 class ViteNetteBridge
 {
-    protected ?ViteLocatorContract $passiveLocator = null;
-    protected string $path;
-    protected string $wwwDir;
-    protected bool $dev;
-    protected ?string $tempDir;
-    protected string $basePath;
-    protected string $manifest;
-    protected string $tempFile;
-    protected string $devUrl;
-    protected bool $strict;
+    protected ViteBridge $vite;
 
     public function __construct(
         string $path,
         string $wwwDir,
-        bool $dev = false,
         ?string $tempDir = null,
         string $basePath = '/',
         string $manifest = 'manifest.json',
         string $tempFile = 'vite.php',
         string $devUrl = 'http://localhost:3000',
-        bool $strict = false
+        bool $strict = true
     ) {
-        $this->path = $path;
-        $this->wwwDir = $wwwDir;
-        $this->basePath = $basePath;
-        $this->manifest = $manifest;
-        $this->tempDir = $tempDir;
-        $this->tempFile = $tempFile;
-        $this->dev = $dev;
-        $this->devUrl = $devUrl;
-        $this->strict = $strict;
+        $this->vite = new ViteBridge(
+            "{$wwwDir}/{$path}/{$manifest}",
+            "{$tempDir}/{$tempFile}",
+            "{$basePath}/{$path}",
+            $devUrl,
+            $strict,
+        );
     }
 
-    public function makePassiveEntryLocator(): ViteLocatorContract
+    public function makePassiveEntryLocator(bool $dev = false): ViteLocatorContract
     {
-        $this->passiveLocator ??= ViteBridge::makePassiveEntryLocator(
-            "{$this->wwwDir}/{$this->path}/{$this->manifest}",
-            "{$this->tempDir}/{$this->tempFile}",
-            "{$this->basePath}/{$this->path}",
-            $this->dev ? $this->devUrl : null,
-            $this->strict,
-        );
-        return $this->passiveLocator;
+        return $this->vite->makePassiveEntryLocator($dev);
     }
 
-    public function cacheWarmup(): void
+    public function populateCache(): void
     {
-        $populator = new ViteBuildLocator(
-            "{$this->wwwDir}/{$this->path}/{$this->manifest}",
-            "{$this->tempDir}/{$this->tempFile}",
-            "{$this->basePath}/{$this->path}",
-            $this->strict,
-        );
-        $populator->populateCache();
+        $this->vite->populateCache();
     }
 
     /**

@@ -4,7 +4,8 @@
   "keywords": ["vite", "latte", "nette", "bridge"],
   "require": {
     "php": "^7.4 || ^8",
-    "dakujem/peat": "*"
+    "dakujem/peat": "*",
+    "latte/latte": "^2"
   },
   "autoload": {
     "psr-4": {
