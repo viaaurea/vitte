@@ -5,7 +5,7 @@
 Vite bridge for Latte templates (Nette).
 
 >
-> [🇸🇰/🇨🇿 Slovenská / Česká verzia readme](readme.md)
+> [🇸🇰/🇨🇿 Slovenská / Česká verzia readme](readme.cs+sk.md)
 >
 
 Usage in Latte:
@@ -48,26 +48,25 @@ decorator:
 
 The `{vite}` macro is then available in the templates:
 ```html
-  {vite main.js}
+  {vite src/main.js}
   <div id="app" />
 ```
 
-The name of the macro is configurable.
+> The name of the macro is configurable.
 
+Depending on `%system.vite.vue.development%` variable (replace it with whatever you are using),
+the macro produces tags for production or development:
 
-### Viacero bundlov 
-
-Vitte supports multiple Vite bundles (e.g. combining React and Vue bundles),
-see the `ViteLatteInstaller::bundle()` method.
-
-Usage:
 ```html
-  {vite src/main.js vue-bundle}
-  {vite src/main.js react-bundle}
-```
+<!-- PRODUCTION -->
+<script type="module" src="/placeholder/assets/main.cf1f50e2.js"></script>
+<script type="module" src="/placeholder/assets/vendor.5f8262d6.js"></script>
+<link rel="stylesheet" href="/placeholder/assets/main.c9fc69a7.css" />
 
-> Note that you need to call `ViteLatteInstaller::bundle` for each bundle, like this:\
-> `ViteLatteInstaller::bundle(..., 'vue-bundle')::install(@self)`
+<!-- DEVELOPMENT -->
+<script type="module" src="http://localhost:3000/@vite/client"></script>
+<script type="module" src="http://localhost:3000/src/main.js"></script>
+```
 
 
 ## Vite configuration
@@ -77,8 +76,8 @@ Vite (`vite.config.js`) must be configured for correct integration:
 - `build.manifest` must be set to `true`
 - `build.rollupOptions.input` should point to the `main.js` (or other JS entrypoint)
 
-Explanation and more information can be found here:
-- [PHP-Vite bridge building tool (Peat)](https://github.com/dakujem/peat#vite)
+**Explanation** and more information can be found here:
+- 👉 [PHP-Vite bridge building tool (Peat)](https://github.com/dakujem/peat#vite)
 - [official Vite documentation](https://vitejs.dev/guide/backend-integration.html).
 
 > 💡
@@ -116,4 +115,19 @@ use VA\Vitte\ViteNetteBridge;
     echo "ok\n";
 })();
 ```
+
+
+## Multiple bundles
+
+Vitte supports multiple Vite bundles (e.g. combining React and Vue bundles),
+see the `ViteLatteInstaller::bundle()` method.
+
+Usage:
+```html
+  {vite src/main.js vue-bundle}
+  {vite src/main.js react-bundle}
+```
+
+> Note that you need to call `ViteLatteInstaller::bundle` for each bundle, like this:\
+> `ViteLatteInstaller::bundle(..., 'vue-bundle')::install(@self)`
 
