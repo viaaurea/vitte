@@ -14,7 +14,7 @@ use Dakujem\Peat\ViteLocatorContract;
  */
 class ViteNetteBridge
 {
-    protected ViteBridge $vite;
+    protected ViteBridge $viteBridge;
 
     public function __construct(
         string $path,
@@ -26,7 +26,7 @@ class ViteNetteBridge
         string $devUrl = 'http://localhost:3000',
         bool $strict = true
     ) {
-        $this->vite = new ViteBridge(
+        $this->viteBridge = new ViteBridge(
             "{$wwwDir}/{$path}/{$manifest}",
             "{$tempDir}/{$tempFile}",
             "{$basePath}/{$path}",
@@ -37,12 +37,12 @@ class ViteNetteBridge
 
     public function makePassiveEntryLocator(bool $dev = false): ViteLocatorContract
     {
-        return $this->vite->makePassiveEntryLocator($dev);
+        return $this->viteBridge->makePassiveEntryLocator($dev);
     }
 
     public function populateCache(): void
     {
-        $this->vite->populateCache();
+        $this->viteBridge->populateCache();
     }
 
     /**
