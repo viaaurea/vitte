@@ -30,7 +30,7 @@ services:
             path:       assets/vite-bundle              # Relativna cesta od www k manifestu
             manifest:   manifest.json                   # Nazov manifest suboru
             tempFile:   vite.php                        # Pre kazdy Vite bundle musi byt vlastny cache subor v temp adresari.
-            devUrl:     %system.vite.vue.url%           # Default je 'http://localhost:3000'
+            devUrl:     %system.vite.url%               # Default je 'http://localhost:3000'
             strict:     yes                             # Striktny rezim bude pre vas mozno vhodly len pri vyvoji
             basePath:   @http.paths::getBasePath()
             wwwDir:     %wwwDir%
@@ -41,7 +41,7 @@ decorator:
     setup:
       - VA\Vitte\ViteLatteInstaller()::bundle(
           @vite::makePassiveEntryLocator(
-            %system.vite.vue.development%               # Pri zapnutom dev rezime produkuje linky na Vite dev-server
+            %system.vite.development%                   # Pri zapnutom dev rezime produkuje linky na Vite dev-server
           )
         )::install(@self)
 ```
@@ -54,7 +54,7 @@ V sablone bude po uspesnej instalacii dostupne makro `{vite}`:
 
 > Nazov makra je nastavitelny.
 
-V zavislosti od `%system.vite.vue.development%` premennej (mozete nahradit za vlastnu),
+V zavislosti od `%system.vite.development%` premennej (mozete nahradit za vlastnu),
 makro produkuje tagy pre produkcne alebo vyvojove prostredie:
 ```html
 <!-- PRODUCTION -->

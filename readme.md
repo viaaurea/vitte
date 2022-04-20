@@ -30,7 +30,7 @@ services:
             path:       assets/vite-bundle              # Relative path from www dir to the manifest file
             manifest:   manifest.json                   # manifest file name
             tempFile:   vite.php                        # Each vite bundle must have a dedicated cache file.
-            devUrl:     %system.vite.vue.url%           # Default is 'http://localhost:3000'
+            devUrl:     %system.vite.url%               # Default is 'http://localhost:3000'
             strict:     yes                             # You may want to turn strict mode on in development only
             basePath:   @http.paths::getBasePath()
             wwwDir:     %wwwDir%
@@ -41,7 +41,7 @@ decorator:
     setup:
       - VA\Vitte\ViteLatteInstaller()::bundle(
           @vite::makePassiveEntryLocator(
-            %system.vite.vue.development%               # When on, serves links to Vite dev-server only
+            %system.vite.development%                   # When on, serves links to Vite dev-server only
           )
         )::install(@self)
 ```
@@ -54,7 +54,7 @@ The `{vite}` macro is then available in the templates:
 
 > The name of the macro is configurable.
 
-Depending on `%system.vite.vue.development%` variable (replace it with whatever you are using),
+Depending on `%system.vite.development%` variable (replace it with whatever you are using),
 the macro produces tags for production or development:
 
 ```html
