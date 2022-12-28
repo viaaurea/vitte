@@ -88,9 +88,9 @@ Vite (`vite.config.js`) must be configured for correct integration:
 
 ## Compatibility
 
-Compatible with Vite versions `2` and above.
+Compatible with Vite versions `v2`, `v3`, `v4` and above.
 
-Please note that the default port for development server has changed in Vite `v3` from `3000` to `5173`.
+Please note that the default port for development server has changed since Vite `v3` to `5173` from `3000` used in `v2`.
 
 
 ## Cache Warmup

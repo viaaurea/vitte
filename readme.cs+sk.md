@@ -87,9 +87,9 @@ Pre spravnu funkcnost je potrebne nakonfigurovat Vite (`vite.config.js`):
 
 ## Kompatibilita
 
-Kompatibilne s Vite verziami `2` a vyssie.
+Kompatibilne s Vite verziami `v2`, `v3`, `v4` a vyssie.
 
-Berte na vedomie, prosim, ze default port vyvojoveho serveru sa zmenil vo Vite `v3` z `3000` na `5173`.
+Berte na vedomie, prosim, ze default port vyvojoveho serveru sa od Vite `v3` zmenil na `5173` z `3000` vo `v2`.
 
 
 ## Cache Warmup
