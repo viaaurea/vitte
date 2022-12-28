@@ -30,7 +30,7 @@ services:
             path:       assets/vite-bundle              # Relative path from www dir to the manifest file
             manifest:   manifest.json                   # manifest file name
             tempFile:   vite.php                        # Each vite bundle must have a dedicated cache file.
-            devUrl:     %system.vite.url%               # Default is 'http://localhost:3000'
+            devUrl:     %system.vite.url%               # Default is 'http://localhost:5173'
             strict:     yes                             # You may want to turn strict mode on in development only
             basePath:   @http.paths::getBasePath()
             wwwDir:     %wwwDir%
@@ -64,8 +64,8 @@ the macro produces tags for production or development:
 <link rel="stylesheet" href="/placeholder/assets/main.c9fc69a7.css" />
 
 <!-- DEVELOPMENT -->
-<script type="module" src="http://localhost:3000/@vite/client"></script>
-<script type="module" src="http://localhost:3000/src/main.js"></script>
+<script type="module" src="http://localhost:5173/@vite/client"></script>
+<script type="module" src="http://localhost:5173/src/main.js"></script>
 ```
 
 
@@ -84,6 +84,13 @@ Vite (`vite.config.js`) must be configured for correct integration:
 >
 > You may also want to set `build.outDir` to point to a sub folder in the backend's public dir,
 > so that you don't have to move the build files manually after each build.
+
+
+## Compatibility
+
+Compatible with Vite versions `2` and above.
+
+Please note that the default port for development server has changed in Vite `v3` from `3000` to `5173`.
 
 
 ## Cache Warmup

@@ -30,7 +30,7 @@ services:
             path:       assets/vite-bundle              # Relativna cesta od www k manifestu
             manifest:   manifest.json                   # Nazov manifest suboru
             tempFile:   vite.php                        # Pre kazdy Vite bundle musi byt vlastny cache subor v temp adresari.
-            devUrl:     %system.vite.url%               # Default je 'http://localhost:3000'
+            devUrl:     %system.vite.url%               # Default je 'http://localhost:5173'
             strict:     yes                             # Striktny rezim bude pre vas mozno vhodly len pri vyvoji
             basePath:   @http.paths::getBasePath()
             wwwDir:     %wwwDir%
@@ -63,8 +63,8 @@ makro produkuje tagy pre produkcne alebo vyvojove prostredie:
 <link rel="stylesheet" href="/placeholder/assets/main.c9fc69a7.css" />
 
 <!-- DEVELOPMENT -->
-<script type="module" src="http://localhost:3000/@vite/client"></script>
-<script type="module" src="http://localhost:3000/src/main.js"></script>
+<script type="module" src="http://localhost:5173/@vite/client"></script>
+<script type="module" src="http://localhost:5173/src/main.js"></script>
 ```
 
 
@@ -83,6 +83,13 @@ Pre spravnu funkcnost je potrebne nakonfigurovat Vite (`vite.config.js`):
 >
 > Vhodne je tiez nastavit `build.outDir`, aby smeroval do subadresara pod "document root",
 > aby nebolo nutne presuvat subory rucne.
+
+
+## Kompatibilita
+
+Kompatibilne s Vite verziami `2` a vyssie.
+
+Berte na vedomie, prosim, ze default port vyvojoveho serveru sa zmenil vo Vite `v3` z `3000` na `5173`.
 
 
 ## Cache Warmup

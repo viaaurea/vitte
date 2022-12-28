@@ -23,7 +23,7 @@ class ViteNetteBridge
         string $basePath = '/',
         string $manifest = 'manifest.json',
         string $tempFile = 'vite.php',
-        string $devUrl = 'http://localhost:3000',
+        string $devUrl = 'http://localhost:5173',
         bool $strict = true
     ) {
         $this->viteBridge = new ViteBridge(
